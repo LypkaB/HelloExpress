@@ -31,7 +31,9 @@ window.addEventListener('DOMContentLoaded', function() {
                   empty = cartWrapper.querySelector('.empty');
 
             trigger.remove();
+
             showConfirm();
+            calcGoods(1);
 
             removeBtn.classList.add('goods__item-remove');
             removeBtn.innerHTML = '&times';
@@ -41,6 +43,8 @@ window.addEventListener('DOMContentLoaded', function() {
             if (empty) {
                 empty.remove();
             }
+
+            calcTotal();
         })
     });
 
@@ -70,5 +74,21 @@ window.addEventListener('DOMContentLoaded', function() {
                 confirm.style.opacity = '.' + counter;
             }
         }
+    }
+
+    function calcGoods(i) {
+        const items = cartWrapper.querySelectorAll('.goods__item');
+        badge.textContent = items.length + i;
+    }
+
+    function calcTotal() {
+        const prices = document.querySelectorAll('.cart__wrapper > .goods__item > .goods__price > span');
+        let total = 0;
+
+        prices.forEach((item) => {
+            total += +item.textContent;
+        });
+
+        totalCost.textContent = total;
     }
 });
