@@ -41,4 +41,15 @@ window.addEventListener('DOMContentLoaded', function() {
             }
         })
     });
+
+    function sliceTitle() {
+        titles.forEach((item) => {
+            item.textContent = item.textContent.trim();
+            if (item.textContent.length > 49) {
+                const str = item.textContent.slice(0, 51) + '...';
+                item.textContent = str;
+            }
+        })
+    }
+    sliceTitle();
 });
