@@ -31,6 +31,8 @@ window.addEventListener('DOMContentLoaded', function() {
                   empty = cartWrapper.querySelector('.empty');
 
             trigger.remove();
+            showConfirm();
+
             removeBtn.classList.add('goods__item-remove');
             removeBtn.innerHTML = '&times';
             item.appendChild(removeBtn);
@@ -52,4 +54,21 @@ window.addEventListener('DOMContentLoaded', function() {
         })
     }
     sliceTitle();
+
+    function showConfirm() {
+        confirm.style.display = 'block';
+        let counter = 100;
+        const id = setInterval(frame, 10);
+
+        function frame() {
+            if (counter == 10) {
+                clearInterval(id);
+                confirm.style.display = 'none';
+            } else {
+                counter--;
+                confirm.style.transform = `translateY(-${counter}px)`;
+                confirm.style.opacity = '.' + counter;
+            }
+        }
+    }
 });
