@@ -27,8 +27,7 @@ window.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', () => {
             const item = products[i].cloneNode(true),
                   trigger = item.querySelector('button'),
-                  removeBtn = document.createElement('div'),
-                  empty = cartWrapper.querySelector('.empty');
+                  removeBtn = document.createElement('div');
 
             trigger.remove();
 
@@ -38,13 +37,11 @@ window.addEventListener('DOMContentLoaded', function() {
             removeBtn.classList.add('goods__item-remove');
             removeBtn.innerHTML = '&times';
             item.appendChild(removeBtn);
+
             cartWrapper.appendChild(item);
 
-            if (empty) {
-                empty.remove();
-            }
-
             calcTotal();
+            removeFromCart();
         })
     });
 
@@ -77,8 +74,16 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
     function calcGoods(i) {
-        const items = cartWrapper.querySelectorAll('.goods__item');
+        const items = cartWrapper.querySelectorAll('.goods__item'),
+              empty = cartWrapper.querySelector('.empty');
+
         badge.textContent = items.length + i;
+
+        if (items.length == 0) {
+            empty.style.display = 'inline-block';
+        } else {
+            empty.style.display = 'none';
+        }
     }
 
     function calcTotal() {
@@ -90,5 +95,17 @@ window.addEventListener('DOMContentLoaded', function() {
         });
 
         totalCost.textContent = total;
+    }
+
+    function removeFromCart() {
+        const removeBtn = cartWrapper.querySelectorAll('.goods__item-remove');
+        removeBtn.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.remove();
+
+                calcGoods(0);
+                calcTotal();
+            })
+        })
     }
 });
